@@ -42,8 +42,8 @@ Se o serviço TypeScript nativo do VSCode não estiver rápido o suficiente para
 
 ## Instalação
 
-1. Clone o repositório: `git clone https://github.com/viniciussis/Cookin_Up.git`
-2. Entre no diretório do projeto: `cd Cookin_Up`
+1. Clone o repositório: `git clone https://github.com/viniciussis/My_Tracker.git`
+2. Entre no diretório do projeto: `cd My_Tracker`
 3. Instale as dependências: `npm install`
 
 ## Como Usar
