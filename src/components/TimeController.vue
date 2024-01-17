@@ -14,6 +14,7 @@ import StopWatch from './StopWatch.vue';
 import TimerButton from './TimerButton.vue';
 
 export default defineComponent({
+  name: 'TimeController',
   components: { StopWatch, TimerButton },
   methods: {
     start() {

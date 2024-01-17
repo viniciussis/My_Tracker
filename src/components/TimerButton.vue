@@ -11,6 +11,7 @@
 import { defineComponent } from 'vue'
 
 export default defineComponent({
+  name: 'TimerButton',
   props: {
     icon: {
       type: String,

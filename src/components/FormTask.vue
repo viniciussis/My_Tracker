@@ -23,10 +23,13 @@ export default defineComponent({
   },
   methods: {
     endTask(pastTime: number): void {
-      this.description = ''
-      console.log(pastTime)
+      this.$emit('onSaveTask', {
+        timeInSeconds: pastTime,
+        description: this.description
+      })
     }
-  }
+  },
+  emits: ['onSaveTask']
 })
 </script>
 
