@@ -1,5 +1,5 @@
 <template>
-  <button class="button">
+  <button :type="buttonType" class="button">
     <span class="icon">
       <i :class="icon"></i>
     </span>
@@ -20,6 +20,10 @@ export default defineComponent({
     buttonName: {
       type: String, 
       required: true
+    },
+    buttonType: {
+      type: String as () => "button" | "submit" | "reset",
+      default: 'button'
     }
   }
 })
