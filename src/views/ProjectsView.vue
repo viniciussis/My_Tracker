@@ -7,7 +7,7 @@
         <input type="text" placeholder="Dê um nome ao projeto" class="input" id="projectName" v-model="projectName">
       </div>
       <div class="field">
-        <TimerButton icon="fas fa-check " button-name="Salvar" button-type="submit"/>
+        <TimerButton icon="fas fa-check " button-name="Salvar" button-type="submit" />
       </div>
     </form>
     <table class="table is-full-width">
@@ -29,34 +29,37 @@
 
 <script lang="ts">
 import TimerButton from '@/components/TimerButton.vue';
-import IProject from '@/interfaces/IProject';
-import { defineComponent } from 'vue';
+import { useStore } from '@/store';
+import { computed, defineComponent } from 'vue';
 export default defineComponent({
-    name: 'ProjectsView',
-    data() {
-        return {
-            projectName: '',
-            projects: [] as IProject[]
-        };
-    },
-    methods: {
-        onSave() {
-            const project: IProject = {
-                name: this.projectName,
-                id: new Date().toISOString()
-            };
-            this.projects.push(project);
-            this.projectName = '';
-        }
-    },
-    components: { TimerButton }
+  name: 'ProjectsView',
+  data() {
+    return {
+      projectName: ''
+    };
+  },
+  methods: {
+    onSave() {
+      this.store.commit('ADD_STORE', this.projectName)
+      this.projectName = '';
+    }
+  },
+  setup() {
+    const store = useStore()
+    return {
+      store,
+      projects: computed(() => store.state.projects)
+    }
+  },
+  components: { TimerButton }
 })
 </script>
-<style scoped> 
-.projects{
-  padding: 2rem;
-}
-.title, .label{
-  color: inherit
-}
+<style scoped> .projects {
+   padding: 2rem;
+ }
+
+ .title,
+ .label {
+   color: inherit
+ }
 </style>
