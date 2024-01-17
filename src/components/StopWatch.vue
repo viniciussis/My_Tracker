@@ -1,3 +1,11 @@
+<template>
+  <section >
+    <strong class="stopwatch">
+      {{ pastTime }}
+    </strong>
+  </section>
+</template>
+
 <script lang="ts">
 import { defineComponent } from 'vue';
 
@@ -17,12 +25,8 @@ export default defineComponent({
 })
 </script>
 
-<template>
-  <section>
-    <strong>
-      {{ pastTime }}
-    </strong>
-  </section>
-</template>
-
-<style scoped></style>
+<style>
+.stopwatch{
+  color: inherit;
+}
+</style>

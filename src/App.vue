@@ -1,14 +1,14 @@
 <template>
-  <main class="columns is-gapless is-multiline">
+  <main class="columns is-gapless is-multiline" :class="{'dark-mode': darkModeOn}" >
     <div class="column is-one-quarter">
-      <SideBar />
+      <SideBar @onChangeTheme="changeTheme"/>
     </div>
-    <div class="column is-three-quarter">
+    <div class="column is-three-quarter content">
       <FormTask @onSaveTask="saveTask" />
       <div class="task-list">
         <NewTask v-for="(task, index) in tasks" :key="index" :task=task />
         <EmptyTask v-if="onEmptyList">
-          Você vão está muito produtivo hoje! 😿
+          Você não está muito produtivo hoje! 😿
         </EmptyTask>
       </div>
     </div>
@@ -28,7 +28,8 @@ export default defineComponent({
   components: { SideBar, FormTask, NewTask, EmptyTask },
   data() {
     return {
-      tasks: [] as ITask[]
+      tasks: [] as ITask[],
+      darkModeOn: false
     }
   },
   computed: {
@@ -39,6 +40,9 @@ export default defineComponent({
   methods: {
     saveTask(task: ITask) {
       this.tasks.push(task)
+    },
+    changeTheme(darkModeOn: boolean){
+      this.darkModeOn = darkModeOn
     }
   }
 });
@@ -46,4 +50,21 @@ export default defineComponent({
 
 <style>
 @import '~@fortawesome/fontawesome-free/css/all.css';
+.task-list {
+  padding: 1.25rem;
+}
+
+main {
+  --bg-primary: white;
+  --text-primary: black;
+}
+
+main.dark-mode {
+  --bg-primary: #2b2d42;
+  --text-primary: white;
+}
+
+.content {
+  background-color: var(--bg-primary);
+}
 </style>
