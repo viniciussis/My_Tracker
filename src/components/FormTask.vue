@@ -24,6 +24,7 @@ export default defineComponent({
   methods: {
     endTask(pastTime: number): void {
       this.description = ''
+      console.log(pastTime)
     }
   }
 })

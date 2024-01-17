@@ -2,18 +2,8 @@
   <div class="column">
     <div class="is-flex is-align-items-center is-justify-content-space-between">
       <StopWatch :time-seconds="timeSeconds" />
-      <button class="button" @click="start" :disabled="isActive">
-        <span class="icon">
-          <i class="fas fa-play"></i>
-        </span>
-        <span class="button-tag">play</span>
-      </button>
-      <button class="button" @click="stop" :disabled="!isActive">
-        <span class="icon">
-          <i class="fas fa-stop"></i>
-        </span>
-        <span class='button-tag'>stop</span>
-      </button>
+      <TimerButton button-name="play" icon="fas fa-play" @click="start" :disabled="isActive" />
+      <TimerButton button-name="stop" icon="fas fa-stop" @click="stop" :disabled="!isActive" />
     </div>
   </div>
 </template>
@@ -21,9 +11,10 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import StopWatch from './StopWatch.vue';
+import TimerButton from './TimerButton.vue';
 
 export default defineComponent({
-  components: { StopWatch },
+  components: { StopWatch, TimerButton },
   methods: {
     start() {
       this.isActive = true;
@@ -48,10 +39,3 @@ export default defineComponent({
   emits: ['endTask']
 })
 </script>
-
-<style scoped>
-.button-tag {
-  font-variant: small-caps;
-  font-weight: 700;
-}
-</style>
