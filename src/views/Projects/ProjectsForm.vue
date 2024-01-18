@@ -12,7 +12,9 @@
 
 <script lang="ts">
 import TimerButton from '@/components/TimerButton.vue';
+import { TypeNotification } from '@/interfaces/INotification';
 import { useStore } from '@/store';
+import { ADD_PROJECT, EDIT_PROJECT, SHOW_NOTIFICATION } from '@/store/mutationsType';
 import { defineComponent } from 'vue';
 export default defineComponent({
   name: 'ProjectsForm',
@@ -35,15 +37,20 @@ export default defineComponent({
   methods: {
     onSave() {
       if (this.id) {
-        this.store.commit('EDIT_PROJECT', {
+        this.store.commit(EDIT_PROJECT, {
           id: this.id,
           name: this.projectName
         })
       }
       else {
-        this.store.commit('ADD_PROJECT', this.projectName);
+        this.store.commit(ADD_PROJECT, this.projectName);
       }
       this.projectName = '';
+      this.store.commit(SHOW_NOTIFICATION, {
+        title: 'Salvo com Sucesso!',
+        text: 'Prontinho, seu novo projeto foi salvo com sucesso!',
+        type: TypeNotification.SUCCESS
+      })
       this.$router.push('/projects')
     }
   },

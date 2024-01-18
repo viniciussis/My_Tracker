@@ -5,6 +5,9 @@
         {{ task.description || 'Tarefa sem descrição' }}
       </div>
       <div class="column">
+        {{ task.project.name }}
+      </div>
+      <div class="column">
         <StopWatch :time-seconds=task.timeInSeconds />
       </div>
     </div>

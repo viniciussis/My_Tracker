@@ -4,6 +4,7 @@
       <SideBar @onChangeTheme="changeTheme" />
     </div>
     <div class="column is-three-quarter content">
+      <MyNofications />
       <RouterView />
     </div>
   </main>
@@ -13,10 +14,11 @@
 import { defineComponent } from 'vue';
 import SideBar from './components/SideBar.vue';
 import { RouterView } from 'vue-router';
+import MyNofications from './components/MyNofications.vue';
 
 export default defineComponent({
   name: 'App',
-  components: { SideBar, RouterView },
+  components: { SideBar, RouterView, MyNofications },
   data() {
     return {
       darkModeOn: false

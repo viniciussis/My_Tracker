@@ -24,6 +24,8 @@ import { computed, defineComponent } from 'vue'
 import { useStore } from 'vuex'
 import TimeController from './TimeController.vue';
 import { key } from '@/store';
+import { TypeNotification } from '@/interfaces/INotification';
+import { SHOW_NOTIFICATION } from '@/store/mutationsType';
 
 export default defineComponent({
   name: 'FormTask',
@@ -36,6 +38,15 @@ export default defineComponent({
   },
   methods: {
     endTask(pastTime: number): void {
+      const project = this.projects.find((proj) => proj.id == this.idProject)
+      if (!project) {
+        this.store.commit(SHOW_NOTIFICATION, {
+          title: 'Falha!',
+          text: 'Falha ao finalizar tarefa pois não há nenhum projeto vinculado!',
+          type: TypeNotification.FAIL
+        })
+        return
+      }
       this.$emit('onSaveTask', {
         timeInSeconds: pastTime,
         description: this.description,
@@ -46,7 +57,8 @@ export default defineComponent({
   setup() {
     const store = useStore(key)
     return {
-      projects: computed(() => store.state.projects)
+      projects: computed(() => store.state.projects),
+      store
     }
   },
   emits: ['onSaveTask']

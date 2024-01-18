@@ -21,7 +21,7 @@
                 <i class="fas fa-pencil-alt"></i>
               </span>
             </router-link>
-            <button class="button ml-2 is-danger">
+            <button class="button ml-2 is-danger" @click="deleteProject(project.id)">
               <span class="icon is-small">
                 <i class="fas fa-trash"></i>
               </span>
@@ -36,15 +36,22 @@
 <script lang="ts">
 import TimerButton from '@/components/TimerButton.vue';
 import { useStore } from '@/store';
+import { DELETE_PROJECT } from '@/store/mutationsType';
 import { computed, defineComponent } from 'vue';
 export default defineComponent({
   name: 'ProjectsList',
-  components: { TimerButton },
   setup() {
-    const store = useStore()
+    const store = useStore();
     return {
-      projects: computed(() => store.state.projects)
+      projects: computed(() => store.state.projects),
+      store
+    };
+  },
+  methods: {
+    deleteProject(id: string) {
+      this.store.commit(DELETE_PROJECT, id);
     }
-  }
+  },
+  components: { TimerButton }
 })
 </script>
