@@ -14,8 +14,9 @@
 import TimerButton from '@/components/TimerButton.vue';
 import { TypeNotification } from '@/interfaces/INotification';
 import { useStore } from '@/store';
-import { ADD_PROJECT, EDIT_PROJECT, SHOW_NOTIFICATION } from '@/store/mutationsType';
+import { ADD_PROJECT, EDIT_PROJECT } from '@/store/mutationsType';
 import { defineComponent } from 'vue';
+import useNotifier from "@/hooks/notify"
 export default defineComponent({
   name: 'ProjectsForm',
   data() {
@@ -46,17 +47,15 @@ export default defineComponent({
         this.store.commit(ADD_PROJECT, this.projectName);
       }
       this.projectName = '';
-      this.store.commit(SHOW_NOTIFICATION, {
-        title: 'Salvo com Sucesso!',
-        text: 'Prontinho, seu novo projeto foi salvo com sucesso!',
-        type: TypeNotification.SUCCESS
-      })
+      this.notify(TypeNotification.SUCCESS, "Salvo com Sucesso!", "Prontinho, seu novo projeto foi salvo com sucesso!")
       this.$router.push('/projects')
     }
   },
   setup() {
-    const store = useStore();
+    const store = useStore()
+    const { notify } = useNotifier()
     return {
+      notify,
       store
     };
   },
