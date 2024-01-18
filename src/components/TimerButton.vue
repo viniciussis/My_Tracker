@@ -19,7 +19,7 @@ export default defineComponent({
     },
     buttonName: {
       type: String, 
-      required: true
+      default: ''
     },
     buttonType: {
       type: String as () => "button" | "submit" | "reset",

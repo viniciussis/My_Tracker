@@ -1,7 +1,8 @@
+import ProjectsForm from "@/views/Projects/ProjectsForm.vue"
 import ProjectsView from "../views/ProjectsView.vue"
 import TasksView from "../views/TasksView.vue"
-
 import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router"
+import ProjectsList from "@/views/Projects/ProjectsList.vue"
 
 const routes: RouteRecordRaw[] = [
   {
@@ -11,9 +12,27 @@ const routes: RouteRecordRaw[] = [
   },
   {
     path: '/projects',
-    name: 'Projects',
-    component: ProjectsView
+    component: ProjectsView,
+    children: [
+      {
+        path: '',
+        name: 'ProjectsList',
+        component: ProjectsList
+      },
+      {
+        path: 'new',
+        name: 'NewProject',
+        component: ProjectsForm
+      },
+      {
+        path: ':id',
+        name: 'EditProject',
+        component: ProjectsForm,
+        props: true
+      },
+    ],
   }
+
 ]
 
 const router = createRouter({

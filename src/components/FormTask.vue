@@ -7,7 +7,7 @@
       <div class="column is-3">
         <div class="select">
           <select v-model="idProject">
-            <option selected hidden disabled value="">Selecione o projeto</option>
+            <option hidden value="">Selecione o projeto</option>
             <option :value="project.id" v-for="project in projects" :key="project.id">
               {{ project.name }}
             </option>
@@ -32,7 +32,6 @@ export default defineComponent({
     return {
       description: '',
       idProject: '',
-      showDefault: false
     }
   },
   methods: {
@@ -40,7 +39,7 @@ export default defineComponent({
       this.$emit('onSaveTask', {
         timeInSeconds: pastTime,
         description: this.description,
-        project: this.projects.find(project => this.idProject === project.id)
+        project: this.projects.find(project => this.idProject == project.id)
       })
     }
   },
