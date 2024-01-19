@@ -36,12 +36,13 @@
 <script lang="ts">
 import TimerButton from '@/components/TimerButton.vue';
 import { useStore } from '@/store';
-import { DELETE_PROJECT } from '@/store/mutationsType';
+import { EXCLUDE_PROJECT, GET_PROJECTS } from '@/store/actionsType';
 import { computed, defineComponent } from 'vue';
 export default defineComponent({
   name: 'ProjectsList',
   setup() {
     const store = useStore();
+    store.dispatch(GET_PROJECTS)
     return {
       projects: computed(() => store.state.projects),
       store
@@ -49,7 +50,7 @@ export default defineComponent({
   },
   methods: {
     deleteProject(id: string) {
-      this.store.commit(DELETE_PROJECT, id);
+      this.store.dispatch(EXCLUDE_PROJECT, id);
     }
   },
   components: { TimerButton }
