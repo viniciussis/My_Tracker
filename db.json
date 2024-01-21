@@ -1,10 +1,6 @@
 {
   "projects": [
     {
-      "id": "5ca0",
-      "name": "Trac"
-    },
-    {
       "id": "52d7",
       "name": "Tr"
     },
@@ -29,7 +25,7 @@
     {
       "id": "1",
       "timeInSeconds": 20,
-      "description": "Estudando Vue e Coisas",
+      "description": "Estudando Java",
       "project": {
         "id": "5ca0",
         "name": "Tracker"
@@ -38,7 +34,7 @@
     {
       "id": "35de",
       "timeInSeconds": 3,
-      "description": "Estudando Java",
+      "description": "Estudando Qualquer",
       "project": {
         "id": "5ca0",
         "name": "Trac"

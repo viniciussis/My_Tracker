@@ -74,8 +74,12 @@ export const store = createStore<State>({
       return httpClient.delete(`/projects/${id}`)
         .then(() => commit(DELETE_PROJECT, id))
     },
-    [GET_TASKS]({ commit }) {
-      httpClient.get('tasks')
+    [GET_TASKS]({ commit }, filter: string) {
+      let url = 'tasks'
+      if (filter){
+        url += '?description=' + filter
+      }
+      httpClient.get(url)
         .then(response => commit(SET_TASKS, response.data))
     },
     [REGISTER_TASK]({ commit }, task: ITask) {
