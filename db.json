@@ -7,13 +7,29 @@
     {
       "id": "52d7",
       "name": "Tr"
+    },
+    {
+      "id": "d188",
+      "name": "Vue and Vuex"
+    },
+    {
+      "id": "0962",
+      "name": "Tracker"
+    },
+    {
+      "id": "e1d2",
+      "name": "Tracker"
+    },
+    {
+      "id": "5fd5",
+      "name": "Teste"
     }
   ],
   "tasks": [
     {
       "id": "1",
       "timeInSeconds": 20,
-      "description": "Estudando Vue",
+      "description": "Estudando Vue e Coisas",
       "project": {
         "id": "5ca0",
         "name": "Tracker"

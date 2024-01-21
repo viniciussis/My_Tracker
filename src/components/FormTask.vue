@@ -2,11 +2,11 @@
   <div class="box form">
     <div class="columns">
       <div class="column is-5" role="form" aria-label="Formulário para criação de uma nova tarefa">
-        <input type="text" class="input" v-model="description" placeholder="Qual tarefa você deseja iniciar?" />
+        <input type="text" name="description" class="input" v-model="description" placeholder="Qual tarefa você deseja iniciar?" />
       </div>
       <div class="column is-3">
         <div class="select">
-          <select v-model="idProject">
+          <select name="selectProjects" v-model="idProject">
             <option hidden value="">Selecione o projeto</option>
             <option :value="project.id" v-for="project in projects" :key="project.id">
               {{ project.name }}
@@ -14,13 +14,13 @@
           </select>
         </div>
       </div>
-      <TimeController @end-task="endTask" />
+      <TimeController @end-task="saveTask" />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue'
+import { computed, defineComponent, ref } from 'vue'
 import { useStore } from 'vuex'
 import TimeController from './TimeController.vue';
 import { key } from '@/store';
@@ -30,35 +30,35 @@ import { SHOW_NOTIFICATION } from '@/store/mutationsType';
 export default defineComponent({
   name: 'FormTask',
   components: { TimeController },
-  data() {
-    return {
-      description: '',
-      idProject: '',
-    }
-  },
-  methods: {
-    endTask(pastTime: number): void {
-      const project = this.projects.find((proj) => proj.id == this.idProject)
+  setup(props, { emit }) {
+
+    const store = useStore(key)
+    const projects = computed(() => store.state.projects);
+    const idProject = ref('')
+    const description = ref('')
+
+    const saveTask = (pastTime: number) => {
+      const project = projects.value.find(proj => proj.id == idProject.value)
       if (!project) {
-        this.store.commit(SHOW_NOTIFICATION, {
+        store.commit(SHOW_NOTIFICATION, {
           title: 'Falha!',
           text: 'Falha ao finalizar tarefa pois não há nenhum projeto vinculado!',
           type: TypeNotification.FAIL
         })
         return
       }
-      this.$emit('onSaveTask', {
+      emit('onSaveTask', {
         timeInSeconds: pastTime,
-        description: this.description,
-        project: this.projects.find(project => this.idProject == project.id)
+        description: description.value,
+        project: project
       })
     }
-  },
-  setup() {
-    const store = useStore(key)
+
     return {
-      projects: computed(() => store.state.project.projects),
-      store
+      saveTask,
+      projects,
+      idProject,
+      description
     }
   },
   emits: ['onSaveTask']

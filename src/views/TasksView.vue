@@ -1,7 +1,7 @@
 <template>
   <FormTask @onSaveTask="addTask" />
   <div class="task-list">
-    <NewTask v-for="(task, index) in tasks" :key="index" :task=task @onClickTask="showModel(task)" />
+    <NewTask v-for="(task, index) in tasks" :key="index" :task=task @onClickTask="openTask" />
     <EmptyTask v-if="onEmptyList">
       Você não está muito produtivo hoje! 😿
     </EmptyTask>
@@ -10,17 +10,18 @@
       <div class="modal-card">
         <header class="modal-card-head">
           <p class="modal-card-title">Editando uma tarefa...</p>
-          <button class="delete" aria-label="close" @click="showModel(null)"></button>
+          <button class="delete" aria-label="close" @click="closeModel()"></button>
         </header>
         <section class="modal-card-body">
           <div class="field">
             <label for="taskName" class="label">Descrição</label>
-            <input type="text" placeholder="Dê um nome a tarefa..." v-model="taskSelected.description" class="input" id="taskName">
+            <input type="text" placeholder="Dê um nome a tarefa..." v-model="taskSelected.description" class="input"
+              id="taskName">
           </div>
         </section>
         <footer class="modal-card-foot">
           <button @click="editTask" class="button is-success">Salvar Mudanças</button>
-          <button @click="showModel(null)" class="button">Cancelar</button>
+          <button @click="closeModel()" class="button">Cancelar</button>
         </footer>
       </div>
     </div>
@@ -28,7 +29,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue';
+import { computed, defineComponent, ref } from 'vue';
 import FormTask from '../components/FormTask.vue';
 import NewTask from '../components/NewTask.vue';
 import ITask from '../interfaces/ITask';
@@ -39,35 +40,41 @@ import { GET_TASKS, GET_PROJECTS, UPDATE_TASK, REGISTER_TASK } from '@/store/act
 export default defineComponent({
   name: 'TasksView',
   components: { FormTask, NewTask, EmptyTask },
-  data() {
-    return {
-      taskSelected: null as ITask | null
-    }
-  },
-  computed: {
-    onEmptyList(): boolean {
-      return this.tasks.length === 0
-    }
-  },
-  methods: {
-    addTask(task: ITask): void {
-      this.store.dispatch(REGISTER_TASK, task);
-    },
-    showModel(task: ITask | null): void {
-      this.taskSelected = task;
-    },
-    editTask(): void {
-      this.store.dispatch(UPDATE_TASK, this.taskSelected)
-        .then(() => this.showModel(null))
-    }
-  },
   setup() {
+
     const store = useStore();
+    const tasks = computed(() => store.state.tasks)
+    const onEmptyList = computed(() => tasks.value.length === 0)
+    const taskSelected = ref(null as ITask | null)
+
     store.dispatch(GET_TASKS)
     store.dispatch(GET_PROJECTS)
+
+    const addTask = (task: ITask) => {
+      store.dispatch(REGISTER_TASK, task);
+    }
+
+    const openTask = (task: ITask) => {
+      taskSelected.value = task
+    }
+
+    const closeModel = () => {
+      taskSelected.value = null;
+    }
+
+    const editTask = () => {
+      store.dispatch(UPDATE_TASK, taskSelected.value)
+        .then(() => closeModel())
+    }
+
     return {
-      tasks: computed(() => store.state.task.tasks),
-      store
+      editTask,
+      addTask,
+      openTask,
+      closeModel,
+      onEmptyList,
+      tasks,
+      taskSelected
     };
   }
 });

@@ -16,17 +16,17 @@ const routes: RouteRecordRaw[] = [
     children: [
       {
         path: '',
-        name: 'ProjectsList',
+        name: 'Projects List',
         component: ProjectsList
       },
       {
         path: 'new',
-        name: 'NewProject',
+        name: 'New Project',
         component: ProjectsForm
       },
       {
         path: ':id',
-        name: 'EditProject',
+        name: 'Edit Project',
         component: ProjectsForm,
         props: true
       },

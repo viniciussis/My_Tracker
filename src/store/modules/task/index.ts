@@ -10,6 +10,9 @@ export interface StateTask {
 }
 
 export const taskModule: Module<StateTask, State> = {
+  state: {
+    tasks: []
+  },
   mutations: {
     [ADD_TASK](state, task: ITask) {
       state.tasks.push(task)

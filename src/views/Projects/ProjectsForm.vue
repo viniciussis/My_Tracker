@@ -2,7 +2,7 @@
   <form @submit.prevent="onSave">
     <div class="field">
       <label for="projectName" class="label">Nome do Projeto</label>
-      <input type="text" placeholder="Dê um nome ao projeto" class="input" id="projectName" v-model="projectName">
+      <input type="text" name="project" placeholder="Dê um nome ao projeto" class="input" id="projectName" v-model="projectName">
     </div>
     <div class="field">
       <TimerButton icon="fas fa-check " button-name="Salvar" button-type="submit" />
@@ -17,6 +17,7 @@ import { useStore } from '@/store';
 import { defineComponent } from 'vue';
 import useNotifier from "@/hooks/notify"
 import { REGISTER_PROJECT, UPDATE_PROJECT } from '@/store/actionsType';
+
 export default defineComponent({
   name: 'ProjectsForm',
   data() {
@@ -31,7 +32,7 @@ export default defineComponent({
   },
   mounted() {
     if (this.id) {
-      const project = this.store.state.project.projects.find(proj => proj.id == this.id);
+      const project = this.store.state.projects.find(proj => proj.id == this.id);
       this.projectName = project?.name || ""
     }
   },

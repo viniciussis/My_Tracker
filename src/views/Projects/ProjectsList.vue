@@ -38,13 +38,14 @@ import TimerButton from '@/components/TimerButton.vue';
 import { useStore } from '@/store';
 import { EXCLUDE_PROJECT, GET_PROJECTS } from '@/store/actionsType';
 import { computed, defineComponent } from 'vue';
+
 export default defineComponent({
   name: 'ProjectsList',
   setup() {
     const store = useStore();
     store.dispatch(GET_PROJECTS)
     return {
-      projects: computed(() => store.state.project.projects),
+      projects: computed(() => store.state.projects),
       store
     };
   },

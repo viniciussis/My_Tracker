@@ -29,9 +29,14 @@ export default defineComponent({
       required: true
     }
   },
-  methods: {
-    taskSelected(): void {
-      this.$emit('onClickTask', this.task)
+  setup(props, {emit}) {
+
+    const taskSelected = () => {
+      emit('onClickTask', props.task)
+    }
+
+    return {
+      taskSelected
     }
   },
   emits: ['onClickTask']
@@ -39,7 +44,7 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.task{
+.task {
   cursor: pointer;
 }
 </style>

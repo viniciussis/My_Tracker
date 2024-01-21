@@ -3,7 +3,7 @@ import App from "./App.vue";
 import { OhVueIcon, addIcons } from "oh-vue-icons";
 import { FaFlag, RiZhihuFill } from "oh-vue-icons/icons";
 import router from "./routes";
-import { key, store } from "./store";
+import { key, store } from "./store/index";
 
 addIcons(FaFlag, RiZhihuFill);
 
