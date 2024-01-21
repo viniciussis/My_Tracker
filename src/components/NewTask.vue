@@ -1,6 +1,6 @@
 <template>
   <EmptyTask>
-    <div class="columns">
+    <div class="columns task" @click="taskSelected">
       <div class="column is-7">
         {{ task.description || 'Tarefa sem descrição' }}
       </div>
@@ -28,6 +28,18 @@ export default defineComponent({
       type: Object as PropType<ITask>,
       required: true
     }
-  }
+  },
+  methods: {
+    taskSelected(): void {
+      this.$emit('onClickTask', this.task)
+    }
+  },
+  emits: ['onClickTask']
 })
 </script>
+
+<style scoped>
+.task{
+  cursor: pointer;
+}
+</style>

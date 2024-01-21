@@ -1,7 +1,7 @@
 <template>
   <section>
     <router-link to="/projects/new">
-      <TimerButton button-name="Novo Projeto" icon="fas fa-plus" />
+      <TimerButton class="btn" button-name="Novo Projeto" icon="fas fa-plus" />
     </router-link>
     <table class="table is-full-width">
       <thead>
@@ -44,7 +44,7 @@ export default defineComponent({
     const store = useStore();
     store.dispatch(GET_PROJECTS)
     return {
-      projects: computed(() => store.state.projects),
+      projects: computed(() => store.state.project.projects),
       store
     };
   },
@@ -56,3 +56,9 @@ export default defineComponent({
   components: { TimerButton }
 })
 </script>
+
+<style scoped>
+.btn {
+  margin-bottom: 1rem;
+}
+</style>

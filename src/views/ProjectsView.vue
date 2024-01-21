@@ -13,7 +13,11 @@ export default defineComponent({
 })
 </script>
 
-<style scoped> .projects {
+<style scoped> 
+.projects {
    padding: 2rem;
  }
+.title{ 
+  color: inherit;
+}
 </style>
