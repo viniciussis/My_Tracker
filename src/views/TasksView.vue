@@ -21,7 +21,7 @@
       <template v-slot:body>
         <div class="field">
           <label for="taskName" class="label">Descrição</label>
-          <input type="text" placeholder="Dê um nome a tarefa..." v-model="taskSelected.description" class="input"
+          <input type="text" placeholder="Dê um nome a tarefa..." v-if="taskSelected != null" v-model="taskSelected.description" class="input"
             id="taskName">
         </div>
       </template>
